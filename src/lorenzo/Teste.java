@@ -5,9 +5,5 @@ public class Teste {
         System.out.println("123");
         System.out.println("321");
 
-        
-
-
-        //OLA123312
     }
 }
