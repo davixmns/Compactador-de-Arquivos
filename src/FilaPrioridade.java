@@ -20,13 +20,13 @@ public class FilaPrioridade {
             novo.proximo = primeiro;
             primeiro = novo;
 
-        } else if (novo.frequencia < ultimo.frequencia) {
+        } else if (novo.frequencia <= ultimo.frequencia) {
             ultimo.proximo = novo;
             ultimo = novo;
 
         } else {
             No atual = primeiro;
-            while (novo.frequencia < atual.proximo.frequencia) {
+            while (novo.frequencia <= atual.proximo.frequencia) {
                 atual = atual.proximo;
             }
             novo.proximo = atual.proximo;
@@ -36,6 +36,8 @@ public class FilaPrioridade {
     }
 
     public char dequeue(){
+        if (tamanho == 0)
+            throw new NullPointerException("Fila vazia");
         No elemento = primeiro;
         primeiro = primeiro.proximo;
         tamanho--;
