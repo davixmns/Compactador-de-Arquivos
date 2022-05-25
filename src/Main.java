@@ -22,7 +22,6 @@ public class Main {
             int qtd = frequencia.getFrequencia(i);
             if (qtd > 0) { //frequência da letra > 0?
                 char caractere = (char) i; //int -> caractere
-                System.out.println(caractere + " = " + qtd); //exibe caractere e a frequência
                 fila.enqueue(caractere , qtd); //enfileira de acordo com a frequência
             }
         }
