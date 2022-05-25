@@ -9,69 +9,73 @@ public class FilaPrioridade {
         tamanho = 0;
     }
 
-    public void enqueue(String value, int weight) {
-        No novo = new No(value, weight);
+    public void enqueue(char letra, int frequencia) {
+        No novo = new No(letra, frequencia);
 
         if (primeiro == null) {
             primeiro = novo;
             ultimo = novo;
-        } else if (novo.weight >= primeiro.weight) {
-            novo.prox = primeiro;
+
+        } else if (novo.frequencia >= primeiro.frequencia) {
+            novo.proximo = primeiro;
             primeiro = novo;
-        } else if (novo.weight < ultimo.weight) {
-            ultimo.prox = novo;
+
+        } else if (novo.frequencia < ultimo.frequencia) {
+            ultimo.proximo = novo;
             ultimo = novo;
+
         } else {
-
             No atual = primeiro;
-
-            while(novo.weight < atual.prox.weight){
-                atual = atual.prox;
+            while (novo.frequencia < atual.proximo.frequencia) {
+                atual = atual.proximo;
             }
-
-            novo.prox = atual.prox;
-            atual.prox = novo;
-
+            novo.proximo = atual.proximo;
+            atual.proximo = novo;
         }
         tamanho++;
     }
 
-    public String dequeue(){
-        String elemento = primeiro.info;
-        primeiro = primeiro.prox;
+    public char dequeue(){
+        No elemento = primeiro;
+        primeiro = primeiro.proximo;
         tamanho--;
-        return elemento;
+        return elemento.letra;
     }
 
-    public String search(int position){
-        return toSearch(position).info;
-    }
-
-
-    public No toSearch(int position){
-        No aux = primeiro;
-
-        for (int i = 0; i < position; i++) {
-            aux = aux.prox;
+    public boolean contains(char letra){
+        No atual = this.primeiro;
+        while (atual != null){
+            if(atual.letra == letra){
+                return true;
+            }
+            atual = atual.proximo;
         }
-        return aux;
+        return false;
     }
 
-    public void clean(){
+    public char get(int position){
+        No aux = primeiro;
+        for (int i = 0; i < position; i++) {
+            aux = aux.proximo;
+        }
+        return aux.letra;
+    }
+
+    public void clear(){
         primeiro = null;
         ultimo = null;
         tamanho = 0;
     }
 
-    public String front(){
-        return primeiro.info;
+    public char front(){
+        return primeiro.letra;
     }
 
-    public int frontW(){
-        return primeiro.weight;
+    public int frontF(){
+        return primeiro.frequencia;
     }
 
-    public int length(){
+    public int size(){
         return tamanho;
     }
 
@@ -79,8 +83,8 @@ public class FilaPrioridade {
     public void show(){
         No atual = primeiro;
         while (atual!=null){
-            System.out.print(atual.info + "(" + atual.weight + ") ");
-            atual = atual.prox;
+            System.out.print(atual.letra + "(" + atual.frequencia + ") ");
+            atual = atual.proximo;
         }
         System.out.println();
     }

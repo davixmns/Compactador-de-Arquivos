@@ -23,13 +23,12 @@ public class Main {
             if (qtd > 0) { //frequência da letra > 0?
                 char caractere = (char) i; //int -> caractere
                 System.out.println(caractere + " = " + qtd); //exibe caractere e a frequência
-                fila.enqueue(String.valueOf(caractere), qtd); //enfileira de acordo com a frequência
+                fila.enqueue(caractere , qtd); //enfileira de acordo com a frequência
             }
         }
         fila.show();
         fila.dequeue();
         fila.show();
-
 
     }
 }

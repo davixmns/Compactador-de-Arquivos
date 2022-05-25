@@ -1,14 +1,14 @@
 public class No {
-    public String info;
-    public No prox;
-    public No previous;
-    public int weight;
+    public char letra;
+    public No proximo;
+    public No anterior;
+    public int frequencia;
 
-    public No(String info, int weight){
-        this.info = info;
-        this.prox = null;
-        this.previous = null;
-        this.weight = weight;
+    public No(char letra, int frequencia){
+        this.letra = letra;
+        this.proximo = null;
+        this.anterior = null;
+        this.frequencia = frequencia;
     }
 
 }
