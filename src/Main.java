@@ -27,7 +27,7 @@ public class Main {
         }
         fila.show();
         fila.dequeue();
-        fila.show();
+        fila.show(); // JDK 18
 
     }
 }
