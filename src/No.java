@@ -2,6 +2,8 @@ public class No {
     public char letra;
     public No proximo;
     public No anterior;
+    public No direito;
+    public No esquerdo;
     public int frequencia;
 
     public No(char letra, int frequencia){
