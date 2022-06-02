@@ -1,3 +1,7 @@
+package davi;
+
+import java.io.PrintWriter;
+
 public class FilaPrioridade {
     private No primeiro;
     private No ultimo;
@@ -7,6 +11,38 @@ public class FilaPrioridade {
         this.primeiro = null;
         this.ultimo = null;
         tamanho = 0;
+    }
+
+    public void enqueue(No a, No b){
+        No novo = new No(a.frequencia, b.frequencia, a, b);
+
+        if (this.tamanho == 0) {
+            primeiro = novo;
+            ultimo = novo;
+
+        } else if(novo.frequencia <= this.primeiro.frequencia){
+            novo.proximo = this.primeiro;
+            this.primeiro.anterior = novo;
+            this.primeiro = novo;
+
+        } else if(novo.frequencia >= this.ultimo.frequencia){
+            this.ultimo.proximo = novo;
+            novo.anterior = this.ultimo;
+            this.ultimo = novo;
+
+        } else {
+            No aux = this.primeiro;
+
+            while(aux.proximo != null && novo.frequencia >= aux.proximo.frequencia){
+                aux = aux.proximo;
+            }
+
+            novo.proximo = aux.proximo;
+            novo.anterior = aux;
+            aux.proximo.anterior = novo;
+            aux.proximo = novo;
+        }
+        this.tamanho++;
     }
 
     public void enqueue(char letra, int frequencia) {
@@ -41,13 +77,13 @@ public class FilaPrioridade {
         this.tamanho++;
     }
 
-    public char dequeue(){
+    public No dequeue(){
         if (tamanho == 0)
             throw new NullPointerException("Fila vazia");
         No elemento = primeiro;
         primeiro = primeiro.proximo;
         tamanho--;
-        return elemento.letra;
+        return elemento;
     }
 
     public boolean contains(char letra){
@@ -75,8 +111,8 @@ public class FilaPrioridade {
         tamanho = 0;
     }
 
-    public char front(){
-        return primeiro.letra;
+    public No front(){
+        return this.primeiro;
     }
 
     public int frontF(){

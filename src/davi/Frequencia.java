@@ -1,3 +1,5 @@
+package davi;
+
 public class Frequencia {
     private final int[] frequenciaVetor; //Cada índice representa um decimal de um char
 

@@ -1,3 +1,5 @@
+import davi.Frequencia;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
@@ -26,8 +28,7 @@ public class Main {
             }
         }
         fila.show();
-        fila.dequeue();
-        fila.show(); // JDK 18
+
 
     }
 }
