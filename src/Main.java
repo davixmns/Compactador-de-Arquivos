@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(new FileReader("arquivos/arquivo.txt")); //scanner usando arquivo como entrada
+        Scanner scanner = new Scanner(new FileReader("arquivos/entrada/arquivo.txt")); //scanner usando arquivo como entrada
         Frequencia frequencia = new Frequencia();
         FilaPrioridade fila = new FilaPrioridade();
 
@@ -25,6 +25,7 @@ public class Main {
             if (qtd > 0) { //frequência da letra > 0?
                 char caractere = (char) i; //int -> caractere
                 fila.enqueue(caractere , qtd); //enfileira de acordo com a frequência
+                fila.show();
             }
         }
         fila.show();
