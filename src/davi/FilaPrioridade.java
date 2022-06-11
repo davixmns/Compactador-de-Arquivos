@@ -18,12 +18,12 @@ public class FilaPrioridade {
             primeiro = novo;
             ultimo = novo;
 
-        } else if(novo.frequencia < this.primeiro.frequencia){
+        } else if(novo.frequencia <= this.primeiro.frequencia){
             novo.proximo = this.primeiro;
             this.primeiro.anterior = novo;
             this.primeiro = novo;
 
-        } else if(novo.frequencia > this.ultimo.frequencia){
+        } else if(novo.frequencia >= this.ultimo.frequencia){
             this.ultimo.proximo = novo;
             novo.anterior = this.ultimo;
             this.ultimo = novo;
@@ -31,7 +31,7 @@ public class FilaPrioridade {
         } else {
             No aux = this.primeiro;
 
-            while(aux.proximo != null && novo.frequencia > aux.proximo.frequencia){
+            while(aux.proximo != null && novo.frequencia >= aux.proximo.frequencia){
                 aux = aux.proximo;
             }
 
@@ -50,12 +50,12 @@ public class FilaPrioridade {
             primeiro = novo;
             ultimo = novo;
 
-        } else if(novo.frequencia < this.primeiro.frequencia){
+        } else if(novo.frequencia <= this.primeiro.frequencia){
             novo.proximo = this.primeiro;
             this.primeiro.anterior = novo;
             this.primeiro = novo;
 
-        } else if(novo.frequencia > this.ultimo.frequencia){
+        } else if(novo.frequencia >= this.ultimo.frequencia){
             this.ultimo.proximo = novo;
             novo.anterior = this.ultimo;
             this.ultimo = novo;
@@ -63,7 +63,7 @@ public class FilaPrioridade {
         } else {
             No aux = this.primeiro;
 
-            while(aux.proximo != null && novo.frequencia > aux.proximo.frequencia){
+            while(aux.proximo != null && novo.frequencia >= aux.proximo.frequencia){
                 aux = aux.proximo;
             }
 
@@ -129,6 +129,18 @@ public class FilaPrioridade {
             atual = atual.proximo;
         }
         System.out.println();
+    }
+
+    public void printarArvore(No raiz){
+        System.out.print(raiz.caractere + " ");
+        if(raiz.esquerdo != null){
+            printarArvore(raiz.esquerdo);
+        }
+
+        if(raiz.direito != null){
+
+            printarArvore(raiz.direito);
+        }
     }
 
 }
