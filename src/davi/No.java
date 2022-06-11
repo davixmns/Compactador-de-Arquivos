@@ -1,7 +1,7 @@
 package davi;
 
 public class No {
-    public char letra;
+    public Character caractere;
     public No proximo;
     public No direito;
     public No esquerdo;
@@ -9,7 +9,7 @@ public class No {
     public int frequencia;
 
     public No(char letra, int frequencia){
-        this.letra = letra;
+        this.caractere = letra;
         this.proximo = null;
         this.anterior = null;
         this.direito = null;
@@ -17,8 +17,8 @@ public class No {
         this.frequencia = frequencia;
     }
 
-    public No(int a, int b, No esquerdo, No direito){
-        this.frequencia = a + b;
+    public No(No esquerdo, No direito){
+        this.frequencia = esquerdo.frequencia + direito.frequencia;
         this.esquerdo = esquerdo;
         this.direito = direito;
     }

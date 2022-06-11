@@ -1,7 +1,5 @@
 package davi;
 
-import java.io.PrintWriter;
-
 public class FilaPrioridade {
     private No primeiro;
     private No ultimo;
@@ -14,18 +12,18 @@ public class FilaPrioridade {
     }
 
     public void enqueue(No a, No b){
-        No novo = new No(a.frequencia, b.frequencia, a, b);
+        No novo = new No(a, b);
 
         if (this.tamanho == 0) {
             primeiro = novo;
             ultimo = novo;
 
-        } else if(novo.frequencia <= this.primeiro.frequencia){
+        } else if(novo.frequencia < this.primeiro.frequencia){
             novo.proximo = this.primeiro;
             this.primeiro.anterior = novo;
             this.primeiro = novo;
 
-        } else if(novo.frequencia >= this.ultimo.frequencia){
+        } else if(novo.frequencia > this.ultimo.frequencia){
             this.ultimo.proximo = novo;
             novo.anterior = this.ultimo;
             this.ultimo = novo;
@@ -33,7 +31,7 @@ public class FilaPrioridade {
         } else {
             No aux = this.primeiro;
 
-            while(aux.proximo != null && novo.frequencia >= aux.proximo.frequencia){
+            while(aux.proximo != null && novo.frequencia > aux.proximo.frequencia){
                 aux = aux.proximo;
             }
 
@@ -52,12 +50,12 @@ public class FilaPrioridade {
             primeiro = novo;
             ultimo = novo;
 
-        } else if(novo.frequencia <= this.primeiro.frequencia){
+        } else if(novo.frequencia < this.primeiro.frequencia){
             novo.proximo = this.primeiro;
             this.primeiro.anterior = novo;
             this.primeiro = novo;
 
-        } else if(novo.frequencia >= this.ultimo.frequencia){
+        } else if(novo.frequencia > this.ultimo.frequencia){
             this.ultimo.proximo = novo;
             novo.anterior = this.ultimo;
             this.ultimo = novo;
@@ -65,7 +63,7 @@ public class FilaPrioridade {
         } else {
             No aux = this.primeiro;
 
-            while(aux.proximo != null && novo.frequencia >= aux.proximo.frequencia){
+            while(aux.proximo != null && novo.frequencia > aux.proximo.frequencia){
                 aux = aux.proximo;
             }
 
@@ -89,7 +87,7 @@ public class FilaPrioridade {
     public boolean contains(char letra){
         No atual = this.primeiro;
         while (atual != null){
-            if(atual.letra == letra){
+            if(atual.caractere == letra){
                 return true;
             }
             atual = atual.proximo;
@@ -102,7 +100,7 @@ public class FilaPrioridade {
         for (int i = 0; i < position; i++) {
             aux = aux.proximo;
         }
-        return aux.letra;
+        return aux.caractere;
     }
 
     public void clear(){
@@ -127,7 +125,7 @@ public class FilaPrioridade {
     public void show(){
         No atual = primeiro;
         while (atual!=null){
-            System.out.print(atual.letra + "(" + atual.frequencia + ") ");
+            System.out.print(atual.caractere + " " + atual.frequencia + " ");
             atual = atual.proximo;
         }
         System.out.println();
