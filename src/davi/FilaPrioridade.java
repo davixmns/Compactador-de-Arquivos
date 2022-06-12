@@ -1,8 +1,8 @@
 package davi;
 
 public class FilaPrioridade {
-    private No primeiro;
-    private No ultimo;
+    private NoFila primeiro;
+    private NoFila ultimo;
     private int tamanho;
 
     public FilaPrioridade() {
@@ -11,8 +11,8 @@ public class FilaPrioridade {
         tamanho = 0;
     }
 
-    public void enqueue(No a, No b){
-        No novo = new No(a, b);
+    public void enqueue(NoFila a, NoFila b){
+        NoFila novo = new NoFila(a, b);
 
         if (this.tamanho == 0) {
             primeiro = novo;
@@ -29,7 +29,7 @@ public class FilaPrioridade {
             this.ultimo = novo;
 
         } else {
-            No aux = this.primeiro;
+            NoFila aux = this.primeiro;
 
             while(aux.proximo != null && novo.frequencia >= aux.proximo.frequencia){
                 aux = aux.proximo;
@@ -44,7 +44,7 @@ public class FilaPrioridade {
     }
 
     public void enqueue(char letra, int frequencia) {
-        No novo = new No(letra, frequencia);
+        NoFila novo = new NoFila(letra, frequencia);
 
         if (primeiro == null) {
             primeiro = novo;
@@ -61,7 +61,7 @@ public class FilaPrioridade {
             this.ultimo = novo;
 
         } else {
-            No aux = this.primeiro;
+            NoFila aux = this.primeiro;
 
             while(aux.proximo != null && novo.frequencia >= aux.proximo.frequencia){
                 aux = aux.proximo;
@@ -75,17 +75,17 @@ public class FilaPrioridade {
         this.tamanho++;
     }
 
-    public No dequeue(){
+    public NoFila dequeue(){
         if (tamanho == 0)
             throw new NullPointerException("Fila vazia");
-        No elemento = primeiro;
+        NoFila elemento = primeiro;
         primeiro = primeiro.proximo;
         tamanho--;
         return elemento;
     }
 
     public boolean contains(char letra){
-        No atual = this.primeiro;
+        NoFila atual = this.primeiro;
         while (atual != null){
             if(atual.caractere == letra){
                 return true;
@@ -96,7 +96,7 @@ public class FilaPrioridade {
     }
 
     public char get(int position){
-        No aux = primeiro;
+        NoFila aux = primeiro;
         for (int i = 0; i < position; i++) {
             aux = aux.proximo;
         }
@@ -109,7 +109,7 @@ public class FilaPrioridade {
         tamanho = 0;
     }
 
-    public No front(){
+    public NoFila front(){
         return this.primeiro;
     }
 
@@ -123,24 +123,12 @@ public class FilaPrioridade {
 
 
     public void show(){
-        No atual = primeiro;
+        NoFila atual = primeiro;
         while (atual!=null){
             System.out.print(atual.caractere + " " + atual.frequencia + " ");
             atual = atual.proximo;
         }
         System.out.println();
-    }
-
-    public void printarArvore(No raiz){
-        System.out.print(raiz.caractere + " ");
-        if(raiz.esquerdo != null){
-            printarArvore(raiz.esquerdo);
-        }
-
-        if(raiz.direito != null){
-
-            printarArvore(raiz.direito);
-        }
     }
 
 }
