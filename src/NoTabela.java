@@ -1,5 +1,3 @@
-package davi;
-
 public class NoTabela {
     public Character caractere;
     public String codigo;

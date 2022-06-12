@@ -1,20 +1,18 @@
-package davi;
-
 public class Frequencia {
-    private final int[] frequenciaVetor; //Cada índice representa um decimal de um char
+    private final int[] frequenciaVetor;
 
     public Frequencia() {
-        this.frequenciaVetor = new int[256]; //UTF-8 (8 bits de representação = 256 caracteres)
+        this.frequenciaVetor = new int[256];
     }
 
-    public void incrementar(int decimal) { //Contagem para o histograma
+    public void incrementar(int decimal) {
         if(decimal > 255)
             throw new ArrayIndexOutOfBoundsException("Índice inválido!!!");
 
         this.frequenciaVetor[decimal] += 1;
     }
 
-    public int getFrequencia(int decimal) { //coleta a frequência de um caractere
+    public int getFrequencia(int decimal) {
         if(decimal > 255)
             throw new ArrayIndexOutOfBoundsException("Índice inválido!!!");
 

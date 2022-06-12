@@ -1,5 +1,3 @@
-package davi;
-
 public class FilaPrioridade {
     private NoFila primeiro;
     private NoFila ultimo;

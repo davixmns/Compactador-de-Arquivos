@@ -1,5 +1,3 @@
-package davi;
-
 public class NoFila {
     public Character caractere;
     public NoFila proximo;

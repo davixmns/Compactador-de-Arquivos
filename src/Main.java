@@ -1,5 +1,3 @@
-package davi;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -18,16 +16,5 @@ public class Main {
         compactador.compactar(arquivoEntrada);
         descompactador.descompactar(arquivoCompactado);
 
-
-//        System.out.println("1 - Compactar, 2 - Descompactar, 3 - Sair");
-//        int opcao = scanner.nextInt();
-//
-//        while (opcao != 3) {
-//            switch (opcao) {
-//                case 1 -> compactador.compactar(arquivoEntrada);
-//                case 2 -> descompactador.decodificarTabela(arquivoCompactado);
-//            }
-//            opcao = scanner.nextInt();
-//        }
     }
 }
