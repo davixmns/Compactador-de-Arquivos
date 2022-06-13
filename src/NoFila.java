@@ -6,7 +6,8 @@ public class NoFila {
     public NoFila anterior;
     public int frequencia;
 
-    public NoFila(char letra, int frequencia){
+
+    public NoFila(Character letra, int frequencia){
         this.caractere = letra;
         this.proximo = null;
         this.anterior = null;

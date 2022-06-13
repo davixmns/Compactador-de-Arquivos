@@ -1,71 +1,83 @@
 import java.io.*;
-import java.util.ArrayList;
 
 public class Descompactador {
     private final PrintWriter escritorArquivoDescompactado;
     private final BufferedReader leitorArquivoTabela;
+    private final ArvoreHuffman arvoreHuffmann;
+    private int posicaoLinhaArvore;
 
     public Descompactador() throws IOException {
+        this.arvoreHuffmann = new ArvoreHuffman();
         this.escritorArquivoDescompactado = new PrintWriter(new FileWriter("arquivos/saida/descompactado.txt"));
         this.leitorArquivoTabela = new BufferedReader(new FileReader("arquivos/auxiliar/tabela.txt"));
+        this.posicaoLinhaArvore = 0;
     }
 
-    //lê o arquivo para decodificar
-    private String decodificarTabela(BufferedReader arquivoCompactado) throws IOException {
-        ArrayList<NoTabela> listaNoTabela = new ArrayList<>(); //Lista de NoTabela(código, caractere)
-        StringBuilder mensagemDecodificada = new StringBuilder(); //StringBuilder para mensagem decodificada
-
-        String linha = this.leitorArquivoTabela.readLine();
-        while (linha != null) {
-            String[] partes = linha.split("\\|"); //separa linha em código e caractere
-            if (partes[1].equals("~")) { //se o caractere for "~", substitui por "\n"
-                partes[1] = "\n";
-            }
-            listaNoTabela.add(new NoTabela(partes[0], partes[1])); //adiciona na lista de NoTabela
-            linha = this.leitorArquivoTabela.readLine();
-        }
-
-        String[] mensagemCodificada = arquivoCompactado.readLine().split(" "); //separa códigos no vetor
-        for (String codigo : mensagemCodificada) { //percorre o vetor de códigos para consultar na tabela de códigos
-            for (NoTabela no : listaNoTabela) {
-                if (codigo.equals(no.codigo)) {
-                    mensagemDecodificada.append(no.caractere); //adiciona caractere na StringBuilder
-                }
-            }
-        }
-
-        return mensagemDecodificada.toString(); //retorna mensagem decodificada
+    public String decodificarMensagem(BufferedReader arquivoCompactado) throws IOException {
+        String linha = arquivoCompactado.readLine() + '~';
+        return decodificarMensagem(arvoreHuffmann.getRaiz(), linha);
     }
 
-    //percorre a arvore para decodificar
-    public String decodificarMensagem(NoFila raiz, String mensagemCodificada) {
+    public String decodificarMensagem(NoHuffman raiz, String mensagemCodificada) {
         StringBuilder mensagemDecodificada = new StringBuilder(); //StringBuilder para mensagem decodificada
 
         for (int i = 0; i < mensagemCodificada.length(); i++) {
             if (mensagemCodificada.charAt(i) == '0') { //se o caractere for 0, percorre a árvore para esquerda
-                raiz = raiz.esquerdo;
+                raiz = raiz.esquerda;
             } else if (mensagemCodificada.charAt(i) == '1') { //se o caractere for 1, percorre a árvore para direita
-                raiz = raiz.direito;
+                raiz = raiz.direita;
             }
 
             assert raiz != null;
-            if (raiz.esquerdo == null && raiz.direito == null) { //se o nó atual for folha, adiciona o caractere na StringBuilder
-                if(raiz.caractere == '~') { //se for "~", substitui por "\n"
+            if (raiz.esquerda == null && raiz.direita == null) { //se o nó atual for folha, adiciona o caractere na StringBuilder
+                if (raiz.caractere == '~') { //se for "~", substitui por "\n"
                     mensagemDecodificada.append('\n');
                 } else {
                     mensagemDecodificada.append(raiz.caractere);
                 }
-                raiz = Compactador.fila.front(); //retorna para a raiz da árvore
+                raiz = this.arvoreHuffmann.getRaiz(); //retorna para a raiz da árvore
             }
         }
 
         return mensagemDecodificada.toString(); //retorna mensagem decodificada
     }
 
-    public void descompactar(BufferedReader arquivoCompactado) throws IOException {
-        this.escritorArquivoDescompactado.print(decodificarTabela(arquivoCompactado));
-//        this.escritorArquivoDescompactado.print(decodificarMensagem(Compactador.fila.front(), arquivoCompactado.readLine()));
+    public void reconstruirArvore(BufferedReader arquivoCompactado) throws IOException {
+        String linha = arquivoCompactado.readLine();
 
+        this.arvoreHuffmann.setRaiz(new NoHuffman(null, null));
+        reconstruirArvore(this.arvoreHuffmann.getRaiz(), linha);
+    }
+
+    public void reconstruirArvore(NoHuffman raiz, String linha) {
+        if (linha.charAt(this.posicaoLinhaArvore) == '1') {
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = this.posicaoLinhaArvore + 1; i < posicaoLinhaArvore + 9; i++) {
+                sb.append(linha.charAt(i));
+            }
+
+            int decimal = Integer.parseInt(sb.toString(), 2);
+
+            raiz.caractere = (char) decimal;
+            posicaoLinhaArvore = posicaoLinhaArvore + 8;
+            return;
+        }
+
+        if (linha.charAt(this.posicaoLinhaArvore) == '0') {
+            raiz.esquerda = new NoHuffman(null, raiz);
+            posicaoLinhaArvore++;
+            reconstruirArvore(raiz.esquerda, linha);
+
+            raiz.direita = new NoHuffman(null, raiz);
+            posicaoLinhaArvore++;
+            reconstruirArvore(raiz.direita, linha);
+        }
+    }
+
+    public void descompactar(BufferedReader arquivoCompactado) throws IOException {
+        reconstruirArvore(arquivoCompactado);
+        this.escritorArquivoDescompactado.print(decodificarMensagem(arquivoCompactado));
         this.escritorArquivoDescompactado.close();
         System.out.println("Descompactação concluída!");
     }

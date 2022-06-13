@@ -1,9 +1,9 @@
-public class FilaPrioridade {
+public class Fila { // Fila de prioridade
     private NoFila primeiro;
     private NoFila ultimo;
     private int tamanho;
 
-    public FilaPrioridade() {
+    public Fila() {
         this.primeiro = null;
         this.ultimo = null;
         tamanho = 0;

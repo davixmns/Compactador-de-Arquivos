@@ -1,16 +1,20 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class Compactador {
-    public static FilaPrioridade fila;
-    private final Frequencia frequencia;
-    private final PrintWriter escritorArquivoCompactado;
-    private final ArrayList<Character> listaDeCaracteres;
-    private final PrintWriter escritorArquivoTabela;
+    public static Fila fila;
+    public final Frequencia frequencia;
+    public final PrintWriter escritorArquivoCompactado;
+    public final ArrayList<Character> listaDeCaracteres;
+    public final PrintWriter escritorArquivoTabela;
+    public String arvoreCodificada = "";
 
     public Compactador() throws IOException {
         this.listaDeCaracteres = new ArrayList<>();
-        fila = new FilaPrioridade();
+        fila = new Fila();
         this.frequencia = new Frequencia();
         this.escritorArquivoTabela = new PrintWriter(new FileWriter("arquivos/auxiliar/tabela.txt"));
         this.escritorArquivoCompactado = new PrintWriter(new FileWriter("arquivos/saida/compactado.txt"));
@@ -20,7 +24,8 @@ public class Compactador {
         contarFrequenciaDeCaracteres(arquivoEntrada);
         enfileirarCaracteres();
         criarArvore();
-        this.escritorArquivoCompactado.print(escreverMensagem());
+        printarArvore();
+        escreverMensagem();
         gerarTabela();
 
         this.escritorArquivoCompactado.close(); //fecha arquivo
@@ -56,6 +61,26 @@ public class Compactador {
         }
     }
 
+    public void printarArvore(){
+        printarArvore(fila.front());
+        this.escritorArquivoCompactado.print(this.arvoreCodificada);
+    }
+
+    public void printarArvore(NoFila raiz) {
+        if (raiz.caractere != null) {
+            this.arvoreCodificada += "1";
+            this.arvoreCodificada += String.format("%8s", Integer.toBinaryString(raiz.caractere)).replaceAll(" ", "0");
+            return;
+        }
+        this.arvoreCodificada += "0";
+        if (raiz.esquerdo != null) {
+            printarArvore(raiz.esquerdo);
+        }
+        if (raiz.direito != null) {
+            printarArvore(raiz.direito);
+        }
+    }
+
     private String getCaractereCodificado(Character c) { //exemplo: 'a' -> '0111'
         return getCaractereCodificado(c, fila.front(), new StringBuilder());
     }
@@ -86,20 +111,20 @@ public class Compactador {
         return null;
     }
 
-    private String escreverMensagem() {
-        StringBuilder mensagemCodificada = new StringBuilder();
+    private void escreverMensagem() {
+        this.escritorArquivoCompactado.println();
         for (Character caractere : this.listaDeCaracteres) {
-            mensagemCodificada.append(getCaractereCodificado(caractere)).append(" "); //adiciona o caractere codificado no StringBuilder
+            this.escritorArquivoCompactado.print(getCaractereCodificado(caractere)); //adiciona o caractere codificado no StringBuilder
         }
-        return mensagemCodificada.toString(); //retorna mensagem codificada
     }
 
     private void gerarTabela() { //Tabela de huffman
-        StringBuilder tabela = new StringBuilder(); //StringBuilder para armazenar a tabela
+        this.escritorArquivoTabela.println("TABELA DE HUFFMAN");
         for (int i = 0; i < this.frequencia.lenght(); i++) { //percorre o vetor com as frequências
             if (this.frequencia.getFrequencia(i) > 0) {  //se a frequencia for maior que 0
-                this.escritorArquivoTabela.println(getCaractereCodificado((char)i) + "|" + (char)i); //adiciona codigo e caractere no StringBuilder
+                this.escritorArquivoTabela.println((char)i + " -> " + getCaractereCodificado((char)i));
             }
         }
+        System.out.println("Tabela gerada!");
     }
 }
