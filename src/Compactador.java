@@ -36,7 +36,7 @@ public class Compactador {
 
     private void contarFrequenciaDeCaracteres(BufferedReader arquivoEntrada) throws IOException {
         while (arquivoEntrada.ready()) {
-            String linha = arquivoEntrada.readLine() + '~'; //usa ~ para quebrar a linha futuramente
+            String linha = arquivoEntrada.readLine() + '\n'; //usa ~ para quebrar a linha futuramente
             for (int i = 0; i < linha.length(); i++) {
                 listaDeCaracteres.add(linha.charAt(i)); //adiciona o caractere na lista para usar futuramente
                 this.frequencia.incrementar(linha.charAt(i)); //incrementa no local especificado no vetor
@@ -66,10 +66,11 @@ public class Compactador {
         this.escritorArquivoCompactado.print(this.arvoreCodificada);
     }
 
-    public void printarArvore(NoFila raiz) {
-        if (raiz.caractere != null) {
+    public void printarArvore(NoFila raiz) { //preOrdem
+        if (raiz.esquerdo == null && raiz.direito == null) { //folha
             this.arvoreCodificada += "1";
             this.arvoreCodificada += String.format("%8s", Integer.toBinaryString(raiz.caractere)).replaceAll(" ", "0");
+            //1 + 8 bits do caractere
             return;
         }
         this.arvoreCodificada += "0";
@@ -88,7 +89,7 @@ public class Compactador {
     private String getCaractereCodificado(Character c, NoFila raiz, StringBuilder s) {
         if (raiz.esquerdo == null && raiz.direito == null) { //folha
             if (raiz.caractere == c) { //se o caractere for o mesmo que o caractere da folha
-                return String.valueOf(s);
+                return String.valueOf(s); //retorna o código
             }
 
         } else {
@@ -114,7 +115,7 @@ public class Compactador {
     private void escreverMensagem() {
         this.escritorArquivoCompactado.println();
         for (Character caractere : this.listaDeCaracteres) {
-            this.escritorArquivoCompactado.print(getCaractereCodificado(caractere)); //adiciona o caractere codificado no StringBuilder
+            this.escritorArquivoCompactado.print(getCaractereCodificado(caractere)); //escreve o código no arquivo
         }
     }
 
