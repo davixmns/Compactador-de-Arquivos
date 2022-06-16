@@ -1,4 +1,6 @@
-public class Fila { // Fila de prioridade
+package fila;
+
+public class Fila { // fila.Fila de prioridade
     private NoFila primeiro;
     private NoFila ultimo;
     private int tamanho;
@@ -75,7 +77,7 @@ public class Fila { // Fila de prioridade
 
     public NoFila dequeue(){
         if (tamanho == 0)
-            throw new NullPointerException("Fila vazia");
+            throw new NullPointerException("fila.Fila vazia");
         NoFila elemento = primeiro;
         primeiro = primeiro.proximo;
         tamanho--;

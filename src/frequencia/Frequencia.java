@@ -1,8 +1,10 @@
+package frequencia;
+
 public class Frequencia {
     private final int[] frequenciaVetor;
 
     public Frequencia() {
-        this.frequenciaVetor = new int[256];
+        this.frequenciaVetor = new int[255];
     }
 
     public void incrementar(int decimal) {

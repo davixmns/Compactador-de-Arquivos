@@ -1,3 +1,5 @@
+package fila;
+
 public class NoFila {
     public Character caractere;
     public NoFila proximo;

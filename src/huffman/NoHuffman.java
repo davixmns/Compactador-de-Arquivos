@@ -1,3 +1,5 @@
+package huffman;
+
 public class NoHuffman {
     public NoHuffman pai;
     public NoHuffman direita;

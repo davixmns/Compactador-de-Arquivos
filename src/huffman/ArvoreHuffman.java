@@ -1,3 +1,5 @@
+package huffman;
+
 public class ArvoreHuffman {
     private NoHuffman raiz;
 

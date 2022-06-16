@@ -1,34 +1,39 @@
+package compactador;
+
+import huffman.ArvoreHuffman;
+import huffman.NoHuffman;
+
 import java.io.*;
 
 public class Descompactador {
     private final PrintWriter escritorArquivoDescompactado;
-    private final BufferedReader leitorArquivoTabela;
     private final ArvoreHuffman arvoreHuffmann;
     private int posicaoLinhaArvore;
 
     public Descompactador() throws IOException {
         this.arvoreHuffmann = new ArvoreHuffman();
         this.escritorArquivoDescompactado = new PrintWriter(new FileWriter("arquivos/saida/descompactado.txt"));
-        this.leitorArquivoTabela = new BufferedReader(new FileReader("arquivos/auxiliar/tabela.txt"));
         this.posicaoLinhaArvore = 0;
     }
 
     public void descompactar(BufferedReader arquivoCompactado) throws IOException {
+        System.out.println("Reconstruindo árvore...");
         reconstruirArvore(arquivoCompactado);
+        System.out.println("Decodificando mensagem...");
         this.escritorArquivoDescompactado.print(decodificarMensagem(arquivoCompactado));
 
         this.escritorArquivoDescompactado.close();
         System.out.println("Descompactação concluída!");
     }
 
-    public void reconstruirArvore(BufferedReader arquivoCompactado) throws IOException {
+    private void reconstruirArvore(BufferedReader arquivoCompactado) throws IOException {
         String linha = arquivoCompactado.readLine();
 
         this.arvoreHuffmann.setRaiz(new NoHuffman(null, null)); //cria raiz da arvore de huffman
         reconstruirArvore(this.arvoreHuffmann.getRaiz(), linha);
     }
 
-    public void reconstruirArvore(NoHuffman raiz, String linha) { //reconstrução da árvore de huffman
+    private void reconstruirArvore(NoHuffman raiz, String linha) { //reconstrução da árvore de huffman
         if (linha.charAt(this.posicaoLinhaArvore) == '1') { //se for 1 lê o binário seguinte
             StringBuilder sb = new StringBuilder();
 
@@ -54,12 +59,12 @@ public class Descompactador {
         }
     }
 
-    public String decodificarMensagem(BufferedReader arquivoCompactado) throws IOException {
+    private String decodificarMensagem(BufferedReader arquivoCompactado) throws IOException {
         String linha = arquivoCompactado.readLine();
         return decodificarMensagem(arvoreHuffmann.getRaiz(), linha);
     }
 
-    public String decodificarMensagem(NoHuffman raiz, String mensagemCodificada) {
+    private String decodificarMensagem(NoHuffman raiz, String mensagemCodificada) {
         StringBuilder mensagemDecodificada = new StringBuilder(); //StringBuilder para mensagem decodificada
 
         for (int i = 0; i < mensagemCodificada.length(); i++) {
