@@ -13,16 +13,16 @@ variável para cada símbolo.
 <br>
 
 <h2>Exemplo </h2>
-| **Caractere** | **Código Huffman** |
-| ------: | -----------: |
-| C️| <kbd>0010</kbd> |
-| A ️| <kbd>111</kbd> |
-| S | <kbd>1101</kbd> |
-| P | <kbd>010</kbd> |
-| E | <kbd>011</kbd> |
-| L | <kbd>100</kbd> |
-| H | <kbd>0011</kbd> |
-| O | <kbd>1100</kbd> |
-| T | <kbd>000</kbd> |
-| " " | <kbd>101</kbd> |
+| **Caractere** | **Código Huffman** | <br>
+| ------: | -----------: | <br>
+| C️| <kbd>0010</kbd> | <br>
+| A ️| <kbd>111</kbd> |<br>
+| S | <kbd>1101</kbd> | <br>
+| P | <kbd>010</kbd> | <br>
+| E | <kbd>011</kbd> | <br>
+| L | <kbd>100</kbd> | <br>
+| H | <kbd>0011</kbd> | <br>
+| O | <kbd>1100</kbd> | <br>
+| T | <kbd>000</kbd> | <br>
+| " " | <kbd>101</kbd> | <br>
 <br>
