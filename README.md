@@ -10,7 +10,7 @@ deles sobre uma rede seja reduzido.<br><br>
 A codificação de Huffman é um método de compactação que usa as probabilidades de ocorrência
 dos símbolos no conjunto de dados a ser compactado para determinar códigos de tamanho
 variável para cada símbolo.
-<br>
+<br><br>
 
 <h2>Exemplo de codificação</h2>
 
