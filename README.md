@@ -13,11 +13,12 @@ variável para cada símbolo.
 <br>
 
 <h2>Exemplo </h2>
-| **Caractere** | **Código Huffman** |
+
+| **Caractere** | **Código** |
 | ------: | -----------: |
 | C️| <kbd>0010</kbd> |
-| A ️| <kbd>111</kbd> |
-| S | <kbd>1101</kbd> |
+| A️| <kbd>111</kbd>  |
+| S  | <kbd>1101</kbd>    |
 | P | <kbd>010</kbd> |
 | E | <kbd>011</kbd> |
 | L | <kbd>100</kbd> |
@@ -25,16 +26,4 @@ variável para cada símbolo.
 | O | <kbd>1100</kbd> |
 | T | <kbd>000</kbd> |
 | " " | <kbd>101</kbd> |
-
-| **Objetivo** | **Onde** |
-| ------: | -----------: |
-| C️| <kbd> 0010 </kbd> |
-| A️| <kbd>111</kbd>  |
-| S  | <kbd></kbd>    |
-| P | <kbd>"arquivos/saida/descriptografado.txt"</kbd> |
-| E | <kbd>"arquivos/saida/descriptografado.txt"</kbd> |
-| L | <kbd>"arquivos/saida/descriptografado.txt"</kbd> |
-| H | <kbd>"arquivos/saida/descriptografado.txt"</kbd> |
-| O | <kbd>"arquivos/saida/descriptografado.txt"</kbd> |
-| T | <kbd>"arquivos/saida/descriptografado.txt"</kbd> |
 <br>
