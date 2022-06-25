@@ -11,9 +11,7 @@ public class Fila { // fila.Fila de prioridade
         tamanho = 0;
     }
 
-    public void enqueue(NoFila a, NoFila b){
-        NoFila novo = new NoFila(a, b);
-
+    public void enqueue(NoFila novo){
         if (this.tamanho == 0) {
             primeiro = novo;
             ultimo = novo;

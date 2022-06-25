@@ -17,14 +17,12 @@ public class Compactador {
     private final PrintWriter escritorArquivoCompactado;
     private final ArrayList<Character> listaDeCaracteres;
     private final PrintWriter escritorArquivoTabela;
-    private final ArvoreHuffman arvoreHuffman;
     private String arvoreCodificada = "";
 
     public Compactador() throws IOException {
         this.listaDeCaracteres = new ArrayList<>();
         fila = new Fila();
         this.frequencia = new Frequencia();
-        this.arvoreHuffman = new ArvoreHuffman();
         this.escritorArquivoTabela = new PrintWriter(new FileWriter("arquivos/auxiliar/tabela.txt"));
         this.escritorArquivoCompactado = new PrintWriter(new FileWriter("arquivos/saida/compactado.txt"));
     }
@@ -58,9 +56,9 @@ public class Compactador {
 
     private void enfileirarCaracteres() {
         for (int i = 0; i < this.frequencia.lenght(); i++) {
-            int qtd = this.frequencia.getFrequencia(i);
-            if (qtd > 0) { //adiciona todos os [] > 0 na fila de prioridade
-                fila.enqueue((char) i, qtd); //guarda um novo No(caractere, frequência) na fila
+            int frequenciaDoCaractere = this.frequencia.getFrequencia(i);
+            if (frequenciaDoCaractere > 0) { //adiciona todos os [] > 0 na fila de prioridade
+                fila.enqueue((char) i, frequenciaDoCaractere); //guarda um novo No(caractere, frequência) na fila
             }
         }
     }
@@ -69,7 +67,8 @@ public class Compactador {
         while (fila.size() > 1) {
             NoFila a = fila.dequeue();
             NoFila b = fila.dequeue();
-            fila.enqueue(a, b); //cria novo No(frequência de a, frequência de b) e adiciona na fila
+            NoFila pai = new NoFila(a, b); //novo No pai(a, b)
+            fila.enqueue(pai); //enfileira o pai
         }
     }
 
