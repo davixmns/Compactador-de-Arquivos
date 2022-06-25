@@ -25,3 +25,4 @@ variável para cada símbolo.
 | O | <kbd>1100</kbd> |
 | T | <kbd>000</kbd> |
 | " " | <kbd>101</kbd> |
+<br>
