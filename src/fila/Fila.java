@@ -1,6 +1,6 @@
 package fila;
 
-public class Fila { // fila.Fila de prioridade
+public class Fila { // Fila de prioridade
     private NoFila primeiro;
     private NoFila ultimo;
     private int tamanho;
@@ -111,14 +111,9 @@ public class Fila { // fila.Fila de prioridade
         return this.primeiro;
     }
 
-    public int frontF(){
-        return primeiro.frequencia;
-    }
-
     public int size(){
         return tamanho;
     }
-
 
     public void show(){
         NoFila atual = primeiro;

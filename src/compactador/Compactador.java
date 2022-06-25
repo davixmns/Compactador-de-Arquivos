@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import frequencia.Frequencia;
-import huffman.*;
 
 public class Compactador {
     private static Fila fila;
