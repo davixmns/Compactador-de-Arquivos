@@ -34,6 +34,7 @@ variável para cada símbolo.
 | ------: | -----------: |
 | Executar ▶️| <kbd>"Main.java"</kbd> |
 | Escrever a entrada ✍️| <kbd>Quando executar selecione um arquivo.txt</kbd>  |
-| ver criptografado 🔣    | <kbd>"arquivos/saida/compactado.txt"</kbd>    |
-| ver descriptografado 📰️ | <kbd>"arquivos/saida/descompactado.txt"</kbd> |
+| Compactado 🔣    | <kbd>"arquivos/saida/compactado.txt"</kbd>    |
+| Descompactado 📰️ | <kbd>"arquivos/saida/descompactado.txt"</kbd> |
+| Tabela de Huffman 📜 | <kbd>"arquivos/auxiliar/tabela.txt"</kbd> |
 <br>
