@@ -12,7 +12,7 @@ dos símbolos no conjunto de dados a ser compactado para determinar códigos de 
 variável para cada símbolo.
 <br>
 
-<h2>Exemplo </h2>
+<h2>Exemplo de codificação</h2>
 
 | **Caractere** | **Código** |
 | ------: | -----------: |
@@ -26,4 +26,14 @@ variável para cada símbolo.
 | O | <kbd>1100</kbd> |
 | T | <kbd>000</kbd> |
 | " " | <kbd>101</kbd> |
+<br>
+
+<h2>Como usar 🤔</h2>
+
+| **Objetivo** | **Onde** |
+| ------: | -----------: |
+| Executar ▶️| <kbd>"Main.java"</kbd> |
+| Escrever a entrada ✍️| <kbd>Quando executar selecione um arquivo.txt</kbd>  |
+| ver criptografado 🔣    | <kbd>"arquivos/saida/criptografado.txt"</kbd>    |
+| ver descriptografado 📰️ | <kbd>"arquivos/saida/descriptografado.txt"</kbd> |
 <br>
