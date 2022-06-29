@@ -17,9 +17,7 @@ public class Descompactador {
     }
 
     public void descompactar(BufferedReader arquivoCompactado) throws IOException {
-        System.out.println("Reconstruindo árvore...");
         reconstruirArvore(arquivoCompactado);
-        System.out.println("Decodificando mensagem...");
         decodificarMensagem(arquivoCompactado);
 
         this.escritorArquivoDescompactado.close();
@@ -27,7 +25,9 @@ public class Descompactador {
     }
 
     private void reconstruirArvore(BufferedReader arquivoCompactado) throws IOException {
+        System.out.println("Reconstruindo árvore...");
         String linha = arquivoCompactado.readLine();
+
         this.arvoreHuffmann.setRaiz(new NoHuffman(null, null)); //cria raiz da arvore de huffman
         reconstruirArvore(this.arvoreHuffmann.getRaiz(), linha);
     }
@@ -59,6 +59,7 @@ public class Descompactador {
     }
 
     private void decodificarMensagem(BufferedReader arquivoCompactado) throws IOException {
+        System.out.println("Decodificando mensagem...");
         String linha = arquivoCompactado.readLine();
         this.escritorArquivoDescompactado.print(decodificarMensagem(arvoreHuffmann.getRaiz(), linha));
     }

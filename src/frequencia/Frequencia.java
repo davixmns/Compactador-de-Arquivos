@@ -8,16 +8,16 @@ public class Frequencia {
         this.frequenciaVetor = new int[utf8];
     }
 
-    public void incrementar(int decimal) {
+    public void incrementarNoIndiceDoVetor(int decimal) {
         if(decimal > this.utf8)
-            throw new ArrayIndexOutOfBoundsException("Índice inválido!!!");
+            throw new ArrayIndexOutOfBoundsException("Índice inválido -> " + (char)decimal);
 
         this.frequenciaVetor[decimal] += 1;
     }
 
     public int getFrequencia(int decimal) {
         if(decimal > this.utf8)
-            throw new ArrayIndexOutOfBoundsException("Índice inválido!!!");
+            throw new ArrayIndexOutOfBoundsException("Índice inválido -> " + decimal);
 
         return this.frequenciaVetor[decimal];
     }
