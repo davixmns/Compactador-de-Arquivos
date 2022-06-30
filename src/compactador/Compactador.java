@@ -26,16 +26,21 @@ public class Compactador {
         this.escritorArquivoCompactado = new PrintWriter(new FileWriter("arquivos/saida/compactado.txt"));
     }
 
-    public void compactar(BufferedReader arquivoEntrada) throws IOException {
-        contarFrequenciaDeCaracteres(arquivoEntrada);
-        enfileirarCaracteres();
-        criarArvore();
-        escreverArvoreEmPreOrdem();
-        escreverMensagemCodificada();
-        gerarTabelaDeHuffman();
+    public void compactar(BufferedReader arquivoEntrada) {
+        try {
+            contarFrequenciaDeCaracteres(arquivoEntrada);
+            enfileirarCaracteres();
+            gerarArvore();
+            escreverArvoreEmPreOrdem();
+            escreverMensagemCodificada();
+            gerarTabelaDeHuffman();
 
-        this.escritorArquivoCompactado.close(); //fecha arquivo
-        this.escritorArquivoTabela.close(); //fecha arquivo
+            this.escritorArquivoCompactado.close(); //fecha arquivo
+            this.escritorArquivoTabela.close(); //fecha arquivo
+            System.out.println("Compactação concluída!");
+        } catch (IOException e){
+            System.err.println(e.getMessage());
+        }
     }
 
     private void contarFrequenciaDeCaracteres(BufferedReader arquivoEntrada) throws IOException {
@@ -59,7 +64,7 @@ public class Compactador {
         }
     }
 
-    private void criarArvore() { //Cria Arvore de Huffman
+    private void gerarArvore() { //Cria Arvore de Huffman
         System.out.println("Construindo árvore...");
         while (fila.size() > 1) {
             NoFila a = fila.dequeue();
@@ -129,7 +134,6 @@ public class Compactador {
             mensagemCodificada.append(getCaractereCodificado(caractere)); //escreve o código no arquivo
         }
         this.escritorArquivoCompactado.print(mensagemCodificada);
-        System.out.println("Compactação concluída!");
     }
 
     private void gerarTabelaDeHuffman() { //Tabela de huffman

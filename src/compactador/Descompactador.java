@@ -16,12 +16,16 @@ public class Descompactador {
         this.posicaoLinhaArvore = 0;
     }
 
-    public void descompactar(BufferedReader arquivoCompactado) throws IOException {
-        reconstruirArvore(arquivoCompactado);
-        decodificarMensagem(arquivoCompactado);
+    public void descompactar(BufferedReader arquivoCompactado) {
+        try {
+            reconstruirArvore(arquivoCompactado);
+            decodificarMensagem(arquivoCompactado);
 
-        this.escritorArquivoDescompactado.close();
-        System.out.println("Descompactação concluída!");
+            this.escritorArquivoDescompactado.close();
+            System.out.println("Descompactação concluída!");
+        }catch (IOException e){
+            System.err.println(e.getMessage());
+        }
     }
 
     private void reconstruirArvore(BufferedReader arquivoCompactado) throws IOException {
@@ -41,7 +45,6 @@ public class Descompactador {
             }
 
             int decimal = Integer.parseInt(sb.toString(), 2); //binário -> decimal
-
             raiz.caractere = (char) decimal; //grava o decimal -> caractere no nó
             posicaoLinhaArvore = posicaoLinhaArvore + 8; //avança a posição da linha
             return;
