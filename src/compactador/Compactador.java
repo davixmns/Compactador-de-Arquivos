@@ -77,7 +77,7 @@ public class Compactador {
     private void escreverArvoreEmPreOrdem() {
         System.out.println("Escrevendo árvore...");
         escreverArvoreEmPreOrdem(fila.front());
-        this.escritorArquivoCompactado.print(this.arvoreCodificada);
+        this.escritorArquivoCompactado.println(this.arvoreCodificada);
     }
 
     private void escreverArvoreEmPreOrdem(NoFila raiz) { //preOrdem
@@ -105,7 +105,6 @@ public class Compactador {
             if (raiz.caractere.equals(c)) { //se o caractere for o mesmo que o caractere da folha
                 return String.valueOf(s); //retorna o código
             }
-
         } else {
             //percorre a esquerda
             s.append('0');
@@ -129,7 +128,6 @@ public class Compactador {
     private void escreverMensagemCodificada() {
         System.out.println("Escrevendo mensagem codificada...");
         StringBuilder mensagemCodificada = new StringBuilder();
-        this.escritorArquivoCompactado.println();
         for (Character caractere : this.listaDeCaracteres) {
             mensagemCodificada.append(getCaractereCodificado(caractere)); //escreve o código no arquivo
         }

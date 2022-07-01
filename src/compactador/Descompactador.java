@@ -31,7 +31,6 @@ public class Descompactador {
     private void reconstruirArvore(BufferedReader arquivoCompactado) throws IOException {
         System.out.println("Reconstruindo árvore...");
         String linha = arquivoCompactado.readLine();
-
         this.arvoreHuffmann.setRaiz(new NoHuffman(null, null)); //cria raiz da arvore de huffman
         reconstruirArvore(this.arvoreHuffmann.getRaiz(), linha);
     }

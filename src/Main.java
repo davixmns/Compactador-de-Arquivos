@@ -9,19 +9,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Main {
-    public static Integer ExibirArquivoInvalido() {
-        return JOptionPane.showOptionDialog(
-                null,
-                "Arquivo inválido!",
-                "Compactador de Arquivos",
-                JOptionPane.DEFAULT_OPTION,
-                JOptionPane.ERROR_MESSAGE,
-                null,
-                new String[]{"Tentar Novamente","Menu", "Sair"},
-                "OK"
-        );
-    }
-
     public static Integer exibirMenu() {
         return JOptionPane.showOptionDialog(
                 null,
@@ -29,7 +16,7 @@ public class Main {
                 "Compactador de Arquivos",
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE,
-                null,
+                new ImageIcon("arquivos/imagens/compac.png"),
                 new String[]{"Compactar", "Descompactar", "Sair"},
                 null
         );
@@ -89,9 +76,9 @@ public class Main {
 
         int escolhaDoMenu = exibirMenu();
 
-        if(escolhaDoMenu == OPCAO_1){ //compactar
+        if (escolhaDoMenu == OPCAO_1) { //compactar
             int retorno = chooser.showOpenDialog(null);
-            if(retorno == JFileChooser.APPROVE_OPTION) {
+            if (retorno == JFileChooser.APPROVE_OPTION) {
                 String caminhoEntrada = chooser.getSelectedFile().getAbsolutePath();
                 BufferedReader arquivoEntrada = new BufferedReader(new FileReader(caminhoEntrada));
 
@@ -101,34 +88,18 @@ public class Main {
 
                 int escolhaDaCompactacaoConcluida = exibirCompactacaoConcluida(inicioDaCompactacao, fimDaCompactacao);
 
+                boolean flagDescompactar = false;
                 while (true) {
                     if (escolhaDaCompactacaoConcluida == OPCAO_1) {
                         exibirArquivoCompactado();
+                        escolhaDaCompactacaoConcluida = exibirCompactacaoConcluida(inicioDaCompactacao, fimDaCompactacao);
 
                     } else if (escolhaDaCompactacaoConcluida == OPCAO_2) {
                         exibirTabelaDeHuffman();
+                        escolhaDaCompactacaoConcluida = exibirCompactacaoConcluida(inicioDaCompactacao, fimDaCompactacao);
 
                     } else if (escolhaDaCompactacaoConcluida == OPCAO_3) {
-                        BufferedReader arquivoCompactado = new BufferedReader(new FileReader("arquivos/saida/compactado.txt"));
-                        long inicioDaDescompactacao = System.currentTimeMillis();
-                        descompactador.descompactar(arquivoCompactado);
-                        long fimDaDescompactacao = System.currentTimeMillis();
-
-                        int escolhaDaDescompactacaoConcluida = exibirDescompactacaoConcluida(inicioDaDescompactacao, fimDaDescompactacao);
-
-                        while (true) {
-                            if (escolhaDaDescompactacaoConcluida == OPCAO_1) {
-                                exibirArquivoDescompactado();
-                                escolhaDaDescompactacaoConcluida = exibirDescompactacaoConcluida(inicioDaDescompactacao, fimDaDescompactacao);
-
-                            } else if (escolhaDaDescompactacaoConcluida == OPCAO_2) {
-                                main(args);
-                                break;
-
-                            } else {
-                              System.exit(0);
-                            }
-                        }
+                        flagDescompactar = true;
                         break;
 
                     } else if (escolhaDaCompactacaoConcluida == OPCAO_4) {
@@ -136,10 +107,32 @@ public class Main {
                         break;
 
                     } else {
-                      System.exit(0);
+                        System.exit(0);
                     }
+                }
 
-                    escolhaDaCompactacaoConcluida = exibirCompactacaoConcluida(inicioDaCompactacao, fimDaCompactacao);
+                if (flagDescompactar) {
+                    BufferedReader arquivoCompactado = new BufferedReader(new FileReader("arquivos/saida/compactado.txt"));
+
+                    long inicioDaDescompactacao = System.currentTimeMillis();
+                    descompactador.descompactar(arquivoCompactado);
+                    long fimDaDescompactacao = System.currentTimeMillis();
+
+                    int escolhaDaDescompactacaoConcluida = exibirDescompactacaoConcluida(inicioDaDescompactacao, fimDaDescompactacao);
+
+                    while (true) {
+                        if (escolhaDaDescompactacaoConcluida == OPCAO_1) {
+                            exibirArquivoDescompactado();
+                            escolhaDaDescompactacaoConcluida = exibirDescompactacaoConcluida(inicioDaDescompactacao, fimDaDescompactacao);
+
+                        } else if (escolhaDaDescompactacaoConcluida == OPCAO_2) {
+                            main(args);
+                            break;
+
+                        } else {
+                            System.exit(0);
+                        }
+                    }
                 }
 
             } else {
@@ -148,48 +141,23 @@ public class Main {
 
         } else if (escolhaDoMenu == OPCAO_2) { //descompactar
             JFileChooser chooser2 = new JFileChooser();
-            FileNameExtensionFilter filter2 = new FileNameExtensionFilter("Apenas .txt", "txt");
-
-            boolean chave = true;
-            boolean chave2 = true;
-            do {
-                chooser2.setFileFilter(filter2);
-                int retorno = chooser2.showOpenDialog(null);
-
-                if (retorno == JFileChooser.APPROVE_OPTION) {
-                    String caminhoEntrada = chooser2.getSelectedFile().getAbsolutePath();
-                    BufferedReader arquivoCompactado = new BufferedReader(new FileReader(caminhoEntrada));
-
-                    String linha = arquivoCompactado.readLine();
-                    for (int i = 0; i < linha.length(); i++) {
-                        if (linha.charAt(i) != '0' && linha.charAt(i) != '1') {
-                            int escolhaDeArquivoInvalido = ExibirArquivoInvalido();
-                            if (escolhaDeArquivoInvalido == 1) {
-                                System.exit(0);
-                            }
-                            chave2 = false;
-                            break;
-                        }
-                    }
-                    chave = !chave2;
-                } else {
-                    chave = false;
-                    main(args);
-                }
-            } while (chave);
+            chooser2.setFileFilter(new FileNameExtensionFilter("Apenas .txt", "txt"));
+            chooser2.showOpenDialog(null);
+            String caminhoDoCompactado = chooser2.getSelectedFile().getAbsolutePath();
+            BufferedReader arquivoCompactado = new BufferedReader(new FileReader(caminhoDoCompactado));
 
             long inicioDaDescompactacao = System.currentTimeMillis();
-            descompactador.descompactar(new BufferedReader(new FileReader(chooser2.getSelectedFile().getAbsolutePath())));
+            descompactador.descompactar(arquivoCompactado);
             long fimDaDescompactacao = System.currentTimeMillis();
 
             int escolhaDeDescompactacaoConcluida = exibirDescompactacaoConcluida(inicioDaDescompactacao, fimDaDescompactacao);
 
-            while(true){
-                if(escolhaDeDescompactacaoConcluida == OPCAO_1){
+            while (true) {
+                if (escolhaDeDescompactacaoConcluida == OPCAO_1) {
                     exibirArquivoDescompactado();
                     escolhaDeDescompactacaoConcluida = exibirDescompactacaoConcluida(inicioDaDescompactacao, fimDaDescompactacao);
 
-                } else if(escolhaDeDescompactacaoConcluida == OPCAO_2){
+                } else if (escolhaDeDescompactacaoConcluida == OPCAO_2) {
                     main(args);
                     break;
 
