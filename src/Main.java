@@ -71,7 +71,7 @@ public class Main {
 
         int OPCAO_1 = 0;
         int OPCAO_2 = 1;
-        int OPCAO_3 = 2;
+        int OPCAO_3 = 2;//
         int OPCAO_4 = 3;
 
         int escolhaDoMenu = exibirMenu();
